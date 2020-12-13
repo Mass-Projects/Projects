@@ -1,0 +1,17 @@
+open one of the .rar files or both then this is what they contain!
+
+The edited version has the old questions + more responses & even more questions -- Questions.rar
+
+The re written version has entierley re written questions & responses -- Questions.rar
+
+Items Editied has more items for both vehicle & peds -- Items.rar
+
+Items Remade has entierly re written items for both vehicle and ped! -- Items.rar
+
+old files has the old files the ones that were there from the start
+just in case you need a backup for whatever reason :)
+
+Install Instructions
+
+Go to your GTA5 Directory -> plugins -> LSPDFR -> StopThePed
+Replace the downloaded .xml's that you want to use wether it be the editied version etc!
