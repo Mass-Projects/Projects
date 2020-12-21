@@ -1,7 +1,7 @@
   
 Citizen.CreateThread( function()
-updatePath = "/Bluethefurry/FiveM-Resource-Version-Check-Thing" -- your git user/repo path
-resourceName = "FiveM-Resource-Version-Check-Thing ("..GetCurrentResourceName()..")" -- the resource name
+updatePath = "GITHUB.com" -- your git user/repo path
+resourceName = "GITHUB.com ("..GetCurrentResourceName()..")" -- the resource name
 
 function checkVersion(err,responseText, headers)
 	curVersion = LoadResourceFile(GetCurrentResourceName(), "version") -- make sure the "version" file actually exists in your resource root!
