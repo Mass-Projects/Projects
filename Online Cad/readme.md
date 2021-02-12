@@ -1,2 +1,2 @@
 A cad built by Mass Pojects, This cad is built for people who cant afford hosting stuff but want a cad thats online. We will try our best to add the most free hosts we can to encorporate them with our cad! The main goal we want is to make this to have the abality for Heroku, Netlify & Most importantly Github Pages.
-You will most likely only be limited to Github pages unless you want to host it online!
+You will most likely only be limited to Github pages unless you want to host it on a VPS!
