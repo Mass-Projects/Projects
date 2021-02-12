@@ -1,1 +1,1 @@
-
+Why was this cad created? We at Mass Pojects know how it is for people who cant spend the money on things such as cads. We want to fix that, We want users to have the best expierence in there Roleplay but money spending free! This cad was mainly inspired by something called SnailyCad, Snaily cad you got to pay for a host so i wanted to make something better and free! I hope you all love this cad!
