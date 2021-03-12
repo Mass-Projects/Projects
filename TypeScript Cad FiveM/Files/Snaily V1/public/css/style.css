@@ -1,0 +1,224 @@
+@import url('https://fonts.googleapis.com/css?family=Nunito:300,400,700,800&display=swap');
+
+
+.margin-right-10 {
+  margin-right: 10px;
+}
+
+.cancel-btn {
+  margin-right: 10px;
+}
+
+.aler {
+  position: relative;
+  top: 100px;
+  margin-left: 200px;
+  margin-right: 200px;
+}
+
+.add-player-form {
+  margin: 50px;
+}
+
+.searchbar-a {
+  border: 1px solid #ddd;
+  margin-top: -1px;
+  /* Prevent double borders */
+  background-color: #f6f6f6;
+  padding: 12px;
+  text-decoration: none;
+  font-size: 18px;
+  color: black;
+  display: block;
+}
+
+#myInput-2 {
+  position: relative;
+  margin-left: 50px;
+  top: 100px;
+  width: 80%;
+  font-size: 16px;
+  padding: 12px 20px 12px 40px;
+  border: 1px solid #ddd;
+}
+
+.admin-login {
+  margin-left: 150px;
+  margin-right: 150px;
+}
+
+.margin-left-10 {
+  margin-left: 10px;
+}
+
+.margin-top {
+  margin-top: 150px;
+}
+
+.disabled {
+  opacity: 0;
+  pointer-events: none;
+}
+
+.btn-primaryy {
+  color: #007bff;
+  background-color: #fff;
+  border-color: #fff;
+}
+.btn-primaryy:hover {
+  color: #fff;
+  background-color: #0069d9;
+  border-color: #0062cc;
+}
+.btn-primaryy2 {
+  color: #007bff;
+  background-color: #fff;
+  border-color: #fff;
+}
+.btn-primaryy2:hover {
+  color: #fff;
+  background-color: #0069d9;
+  border-color: #0062cc;
+}
+
+.uppercase {
+  text-transform: uppercase;
+}
+
+.color-black {
+  color: black;
+}
+.hidden {
+  visibility: hidden;
+}
+
+#hiddenMore {
+  display: none;
+}
+.npe {
+  pointer-events: none;
+}
+.fs-20 {
+  font-size: 20px;
+}
+.top-1 {
+  margin-top: 2px;
+}
+
+#more {
+  display: none;
+}
+#more2 {
+  display: none;
+}
+#more3 {
+  display: none;
+}
+
+.cap {
+  text-transform: capitalize;
+}
+#more4 {
+  display: none;
+}
+
+#more5 {
+  display: none;
+}
+
+#chargeMore {
+  display: none;
+}
+
+.bolder {
+  font-weight: bolder;
+}
+
+.no-out {
+  outline: none;
+}
+
+.center {
+  text-align: center;
+}
+
+.custom {
+  border: none;
+  width: 25px;
+  pointer-events: none;
+}
+.pn {
+  pointer-events: none;
+}
+.border2 {
+  border-bottom: 3px solid grey;
+}
+.fullscreen {
+  border: none;
+  background: none;
+  height: 30px;
+}
+
+#border2 {
+  visibility: visible;
+  border-bottom: 3px solid grey;
+}
+
+.scroll-bar::-webkit-scrollbar {
+  
+  width: 8px;
+  background-color: #343a40
+}
+.scroll-bar::-webkit-scrollbar-thumb {
+  background-color: #222;
+}
+
+#dataList {
+  display: none;
+}
+
+.pointer {
+  cursor: pointer;
+}
+
+.deleteAccountD {
+  border: none;
+  background: none;
+  background-color: rgba(0, 0, 0, 0.05);
+  width: 200px;
+  overflow: visible;
+  pointer-events: none;
+}
+
+.removeBolo {
+  border: none;
+  background: none;
+  width: 20px;
+  overflow: visible;
+  pointer-events: none;
+  color: white;
+}
+
+.current-cad {
+  position: fixed;
+  left: 50%;
+  bottom: 0%;
+}
+
+li {
+  list-style: none;
+  margin: 0;
+}
+
+#notfound {
+  color: white;
+  font-size: 1.5rem;
+}
+
+.testing {
+  width: 20px;
+}
+
+.icon {
+  width: 50px;
+}
