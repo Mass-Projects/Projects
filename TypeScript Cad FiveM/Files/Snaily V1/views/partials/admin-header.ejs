@@ -1,0 +1,92 @@
+<nav class="col-md-2 d-none d-md-block bg-dark sidebar position-fixed" style="min-height: 100vh;">
+  <div class="sidebar-sticky">
+    <ul class="nav flex-column ">
+      <li class="nav-item">
+        <a
+          class="nav-link text-light"
+          href="/admin/action-log"
+        >
+          Action Logs <span class="sr-only">(current)</span>
+        </a>
+      </li>
+      <li class="nav-item">
+        <a
+          class="nav-link text-light"
+          href="/admin/manage-companies"
+        >
+          Company Management <span class="sr-only">(current)</span>
+        </a>
+      </li>
+      <li class="nav-item">
+        <a
+          class="nav-link text-light"
+          href="/admin/citizens"
+        >
+          Citizen Management <span class="sr-only">(current)</span>
+        </a>
+      </li>
+      <% if (isAdmin === 'admin' || isAdmin === 'owner') { %>
+      <li class="nav-item">
+        <a class="nav-link text-light" href="/admin/members">
+          Member management
+        </a>
+      </li>
+      <% } else {%> <%} %> <% if (isAdmin === 'owner') { %>
+      <li class="nav-item">
+        <a class="nav-link text-light" href="/admin/edit-cad">
+          CAD Settings
+        </a>
+      </li>
+      <% } else {%> <%} %>
+
+      <li class="nav-item">
+        <button
+          type="button"
+          class="btn btn-primary ml-3 nav-link"
+          data-target="#valueCollapse"
+          data-toggle="collapse"
+        >
+          Values >
+        </button>
+      </li>
+
+      <div class="collapse nav-link" id="valueCollapse">
+        <li class="nav-item">
+          <a class=" text-light" href="/admin/vehicles"
+            >Vehicles</a
+          >
+        </li>
+        <li class="nav-item">
+          <a class=" text-light" href="/admin/genders"
+            >Genders</a
+          >
+        </li>
+        <li class="nav-item">
+          <a class=" text-light" href="/admin/weapons"
+            >Weapons</a
+          >
+        </li>
+
+        <li class="nav-item">
+          <a
+            class=" text-light"
+            href="/admin/ethnicities"
+            >Ethnicities</a
+          >
+        </li>
+
+        <li class="nav-item">
+          <a class=" text-light" href="/admin/legal"
+            >Legal</a
+          >
+        </li>
+
+        <li class="nav-item">
+          <a class=" text-light" href="/admin/departments"
+            >Departments</a
+          >
+        </li>
+      </div>
+    </ul>
+  </div>
+</nav>

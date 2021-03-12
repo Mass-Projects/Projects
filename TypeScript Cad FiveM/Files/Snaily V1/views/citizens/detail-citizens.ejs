@@ -1,0 +1,291 @@
+<%- include("../partials/header.ejs") %>
+
+<div class="container-fluid mt-3">
+    <% if (citizen[0]) { %>
+
+        <div class="card bg-dark border-dark text-light">
+            <div class="card-header"><h3>General Information  <div class="float-right">
+                <a class="btn btn-success" href="/citizen/edit/<%= citizen[0].id %>-<%= citizen[0].full_name %>">Edit</a>
+                <button type="button" class="btn btn-danger top-1" data-toggle="modal" data-target="#exampleModal">
+                    Delete Citizen
+                </button>
+                
+            </div></h3> </div>
+            <div class="card-body">
+                <div class="row ml-4 mt-2 mb-2">
+                    <img src="/citizen-pictures/<%= citizen[0].citizen_picture %>" alt="icon" class="rounded-circle " style="width: 100px; height: 100px;"> 
+                    <div class="ml-5">
+                        <span class="bolder">Full Name: </span> <%= citizen[0].full_name %> <br>
+                        <span class="bolder">Date of Birth: </span> <%= citizen[0].birth %> <br>
+                        <span class="bolder">Gender: </span> <%= citizen[0].gender %> <br>
+                        <span class="bolder">Hair Color: </span>  <%= citizen[0].hair_color %><br>
+                    </div>
+                    <div class="ml-2">
+                        <span class="bolder">Eye Color: </span> <%= citizen[0].eye_color %>  <br>
+                        <span class="bolder">Address: </span> <%= citizen[0].address %> <br>
+                        <span class="bolder">Height: </span> <%= citizen[0].height %> <br>
+                        <span class="bolder">Weight: </span> <%= citizen[0].weight %> <br>
+                        <% if (citizen[0].business === "Currently not working") { %>
+                            <span class="bolder">Employer: </span> Currently Not working  
+                        <%} else {%>
+                            <span class="bolder"> Employer: </span> <a href="/company/<%= citizen[0].id %>-<%= citizen[0].business %>"><%= citizen[0].business %> </a> 
+                        <% } %>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+            <!-- Delete Citizen Modal -->
+            <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+                aria-hidden="true">
+                <div class="modal-dialog" role="document">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h5 class="modal-title" id="exampleModalLabel">delete <%= citizen[0].first_name %>
+                                <%= citizen[0].last_name %>?</h5>
+                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                <span aria-hidden="true">&times;</span>
+                            </button>
+                        </div>
+                        <div class="modal-body">
+                            Are you sure?
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-secondary top-1" data-dismiss="modal">Cancel</button>
+                            <a href="/citizen/delete/<%= citizen[0].id %>-<%= citizen[0].first_name %>-<%= citizen[0].last_name %>"
+                                class="btn btn-danger">Delete Citizen</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Licenses -->
+            <div class="card bg-dark border-dark text-light mt-3">
+                <div class="card-header">
+                    <h3>Licenses
+                    <div class="float-right">
+                        <a class="btn btn-primary" href="/licenses/<%= req.params.id %>-<%= req.params.full_name %>/edit-licenses">Edit Licenses</a>
+                    </div></h3> 
+                </div>
+                <div class="card-body ">
+                    <span class="bolder">Driver License:</span> <span id="dmv"><%= citizen[0].dmv %></span>    <br>
+                    <span class="bolder">Pilot License: </span> <%= citizen[0].pilot_license %>  <br>
+                    <span class="bolder"> Firearms License: </span> <%= citizen[0].fire_license %> <br>
+                    <span class="bolder"> CCW License:</span> <%= citizen[0].ccw %>  <br>
+                </div>
+            </div>
+            
+
+            <div class="card bg-dark border-dark mt-3 text-light scroll-bar overflow-auto" style="max-height: 20rem;">
+                <div class="bg-dark border-dark card-header sticky-top">
+                    <h3>Medical Records <div class="float-right">
+                        <a href="/medical/<%= req.params.id %>-<%= req.params.full_name %>/add" class="btn btn btn-primary">Add Allergy/Medication/Health Problem</a>
+                    </div> </h3>
+                </div>
+                <div class="card-body">
+                    <% if (medicalRecords.length > 0) { %>
+                        <table class="table table-dark">
+                            <thead>
+                              <tr>
+                                <th scope="col">#</th>
+                                <th scope="col">Type</th>
+                                <th scope="col">Short Information</th>
+                              </tr>
+                            </thead>
+                            <tbody>
+                               <% medicalRecords.forEach((record, index) => { %>
+                                 <tr>
+                                   <th scope="row"><%= ++index %></th>
+                                   <td><%= record.type %></td>
+                                   <td><%= record.short_info %></td>
+                                 </tr>
+                             <%}) %>
+                             <% } else { %>
+                                <p class="text-light"> You Don't have any medical records, stay healthy :)</p>  
+                               <% } %>
+                            </tbody>
+                        </table>
+                   </ul>
+                   </ul>
+                </div>
+            </div>
+
+            <ul class="list-group">
+                <div class="list-group-item list-group-item-action active bg-dark text-light border-dark mt-1">
+                    <div class="d-flex w-100 justify-content-between">
+                        <h5 class="mb-1">Vehicles:</h5>
+                    </div>
+                    <div id="dots"></div>
+                    <div id="more">
+    
+                        <% if (vehicles[0]) { %>
+                            <p class="mb-1  bg-secondary border-secondary">
+                                <% vehicles.forEach(vehicle => { %>
+                                <li class="list-group-item  bg-secondary border-secondary"> <span class="font-weight-bold"><%= vehicle.vehicle %></span>  <br>
+                                    <span class="font-weight-bold"> Plate:</span> <span class="uppercase font-weight-normal"><%= vehicle.plate %></span> <br> 
+                                    <span class="font-weight-bold">Insurance Status:</span>  <span> <%= vehicle.in_status %></span> <br>
+                                    <span class="font-weight-bold">Color:</span>  <span class="cap"> <%= vehicle.color %></span> <br>
+                                    <span class="font-weight-bold">VIN:</span>  <span class="cap"> <%= vehicle.vin_number %></span> <br>
+                                    <% if (vehicle.company === '' ) { %>
+                                    <span class="font-weight-bold">Company Vehicle: </span>  <span class="cap"> No</span> <br>
+                                    <%} else {%>
+                                    <span class="font-weight-bold">Company Vehicle: </span>  <span class="cap"> Yes, <%= vehicle.company %></span> <br>
+                                    <% }%>
+                                    
+                                    <a href="/c/vehicle/<%= citizen[0].id %>/<%= vehicle.id %>-<%= vehicle.plate %>/edit" class="btn btn-success mt-2">Edit Vehicle</a>
+                                    <a href="/c/vehicle/<%= citizen[0].id %>/<%= vehicle.id %>/delete" class="btn btn-danger mt-2">Delete Vehicle</a>
+                                </li>
+                                <%  }) %>
+                            </p>
+                        <% } else {%>
+                            <p class="mb-1">
+                                <li class="list-group-item  bg-secondary border-secondary">
+                                    You don't have any cars registered. <br>
+                                    <a class="btn btn-primary mt-2" href="/c/vehicle/register">Register a vehicle here</a>
+                                </li>
+                            </p>
+                            <%} %>
+    
+    
+                       
+                    </div>
+                    <button class="btn btn-primary" onclick="veh()" id="vehBtn">See all</button>
+    
+    
+    
+                </div>
+                <div class="list-group-item list-group-item-action active bg-dark text-light border-dark mt-1">
+                    <div class="d-flex w-100 justify-content-between">
+                        <h5 class="mb-1">Weapons:</h5>
+                    </div>
+                    <div id="dots2"></div>
+                    <div id="more2">
+    
+                        <% if (weapons[0]) {%>
+                            <p class="mb-1">
+                                <% weapons.forEach(weapon => { %>
+                                <li class="list-group-item  bg-secondary border-secondary"> <%= weapon.weapon %> <br>
+                                    <span class="font-weight-bold">Serial Number:</span>  <%= weapon.serial_number %> <br/>
+                                    <span class="font-weight-bold">weapon Status:</span>  <%= weapon.status %> <br>
+                                    <a href="/c/weapons/delete/<%= citizen[0].id %>/<%= weapon.id %>" class="btn btn-danger mt-2">Delete Weapon</a>
+                                </li>
+                                <%  }) %>
+                            </p>
+                            <% } else {%>
+                            <p class="mb-1">
+                                <li class="list-group-item  bg-secondary border-secondary">
+                                    You don't have any weapons registered. <br>
+                                    <a class="btn btn-primary mt-2" href="/c/weapons/register">Register a weapon here</a>
+                                </li>
+                            </p> 
+                            <%   }%>
+    
+                        
+                    </div>
+                    <button class="btn btn-primary mt-3" onclick="wep()" id="weapenBtn">See all</button>
+    
+    
+                    </div>
+                    <!-- Tickets & Arrest Reports  -->
+                    <div class="list-group-item list-group-item-action active bg-dark text-light border-dark mt-1">
+                        <div class="d-flex w-100 justify-content-between mb-1">
+                            <h5 class="mb-1">My Tickets & Arrest Reports</h5>
+                        </div>
+                        <div id="chargeDots"></div>
+                        <div class="row" id="chargeMore">
+                            <div class="col-md-6">
+                                <h4>Tickets </h4>
+                                    <% if (tickets.length >0) { %>
+                                        <% tickets.forEach(ticket => { %>
+                                        <li class="list-group-item bg-secondary border-secondary"> <%= ticket.charge %> <br />  <span class="bolder">Given On: </span> <%= ticket.date %><br />  <span class="bolder">Given By: </span> <%= ticket.officer_name %><br /> <span class="bolder">Nearest Postal:</span> <%= ticket.postal %> <br /> <span class="bolder">Notes:</span> <%= ticket.notes %> </li>                            
+                                        <% }); %>
+                                    <% } else { %>
+                                        <p class="mb-1">
+                                            <li class="list-group-item  bg-secondary border-secondary">
+                                                Your record seem to be clean, good :)
+                                            </li>
+                                        </p>
+                                    <% } %>
+                            </div>
+                            <div class="col-md-6">
+                               <h4>Arrest Reports</h4> 
+                                    <% if (reports.length >0){ %>
+                                        <% reports.forEach(report => { %>
+                                        <li class="list-group-item bg-secondary border-secondary"> <%= report.charges %> <br />  <span class="bolder">Given On: </span> <%= report.date %><br /> <span class="bolder">Given By: </span> <%= report.officer_name %><br /> <span class="bolder">Nearest Postal:</span> <%= report.postal %>  <br /> <span class="bolder">Notes:</span> <%= report.notes %></li>                            
+                                        <% }); %>
+                                    <% } else { %>
+                                        <p class="mb-1">
+                                            <li class="list-group-item  bg-secondary border-secondary">
+                                                Your record seem to be clean, good :)
+                                            </li>
+                                        </p>
+                                    <% } %>
+                            </div>
+                        </div>
+                        
+                        <button class="btn btn-primary mt-3" onclick="tickets()" id="chargeBtn">See all</button>
+                    </div>
+
+            </ul>
+        <div class="mb-4"></div>
+    </div>
+    <% } else { %>
+        <p class="text-center">Citizen Not Found. Go Back <a href="/citizen">Here</a>.</p>
+    <% } %>
+
+</div>
+<script>
+    function veh() {
+        let dots = document.getElementById("dots");
+        let moreText = document.getElementById("more");
+        let vehBtn = document.getElementById("vehBtn")
+        let weapenBtn = document.getElementById("weapenBtn")
+
+        if (dots.style.display === "none") {
+            dots.style.display = "inline";
+            moreText.style.display = "none";
+            vehBtn.textContent = "See All"
+
+        } else {
+            dots.style.display = "none";
+            moreText.style.display = "inline";
+            vehBtn.textContent = "See Less"
+        }
+    }
+    function wep() {
+        let dots = document.getElementById("dots2");
+        let moreText = document.getElementById("more2");
+        let vehBtn = document.getElementById("vehBtn")
+        let weapenBtn = document.getElementById("weapenBtn")
+
+        if (dots.style.display === "none") {
+            dots.style.display = "inline";
+            moreText.style.display = "none";
+            weapenBtn.textContent = "See All"
+        } else {
+            dots.style.display = "none";
+            moreText.style.display = "inline";
+            weapenBtn.textContent = "See Less"
+        }
+    }
+    function tickets() {
+        let dots = document.getElementById("chargeDots");
+        let moreText = document.getElementById("chargeMore");
+        let chargeBtn = document.getElementById("chargeBtn")
+
+        if (dots.style.display === "none") {
+            dots.style.display = "flex";
+            moreText.style.display = "none";
+            chargeBtn.textContent = "See All"
+        } else {
+            dots.style.display = "none";
+            moreText.style.display = "flex";
+            chargeBtn.textContent = "See Less"
+        }
+    }
+
+    const dmv = document.getElementById("dmv");
+    if (dmv.textContent==="Suspended") {
+        dmv.style.color= "red"
+    }
+</script>

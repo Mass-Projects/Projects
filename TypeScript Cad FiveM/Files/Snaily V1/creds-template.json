@@ -1,0 +1,7 @@
+{
+    "databasePassword": "DB password",
+    "user": "root",
+    "database": "snaily-cad",
+    "ENV": "production",
+    "ProductionPort": "80"
+}

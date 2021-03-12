@@ -1,0 +1,117 @@
+<%- include("../partials/header.ejs") %>
+
+<div class="container mt-3">
+  <ul class="nav nav-tabs" id="myTab" role="tablist">
+    <li class="nav-item">
+      <a
+        class="nav-link active bg-dark border-dark text-light"
+        id="home-tab"
+        data-toggle="tab"
+        href="#employees"
+        role="tab"
+        aria-controls="home"
+        aria-selected="true"
+        >Employees</a
+      >
+    </li>
+    <li class="nav-item">
+      <a
+        class="nav-link bg-dark border-dark text-light"
+        id="profile-tab"
+        data-toggle="tab"
+        href="#vehicles"
+        role="tab"
+        aria-controls="profile"
+        aria-selected="false"
+        >Vehicles</a
+      >
+    </li>
+    <li class="nav-item">
+      <a
+        class="nav-link bg-dark border-dark text-light"
+        id="profile-tab"
+        data-toggle="tab"
+        href="#awaiting"
+        role="tab"
+        aria-controls="profile"
+        aria-selected="false"
+        >Awaiting Access <div class="badge badge-primary"><%= awaitingEmployees.length %></div> </a
+      >
+    </li>
+  </ul>
+  <div class="tab-content text-light" id="myTabContent">
+    <div
+      class="tab-pane fade show active"
+      id="employees"
+      role="tabpanel"
+      aria-labelledby="employee-tab"
+    >
+      <h1 class="card-title mt-1">Employees</h1>
+      <ul class="list-group mt-1">
+        <% employees.forEach(employee => { %>
+        <li class="list-group-item bg-dark border-dark text-light cap">
+          <%= employee.full_name %> | <%= employee.rank %>
+          <div class="float-right">
+            <a
+              href="/company/<%= req.params.citizenId %>-<%= req.params.company %>/<%= employee.id %>/edit"
+              class="btn btn-success"
+              >Edit</a
+            >
+          </div>
+        </li>
+        <% }) %>
+      </ul>
+    </div>
+
+    <!-- Vehicles -->
+    <div
+      class="tab-pane fade mt-2"
+      id="vehicles"
+      role="tabpanel"
+      aria-labelledby="profile-tab"
+    >
+      <h1 class="card-title mt-1">Vehicles</h1>
+      <ul class="list-group mt-1">
+        <% if (vehicles.length >0) { %> <% vehicles.forEach(vehicle => { %>
+        <li class="list-group-item bg-dark border-dark text-light cap">
+          <span class="bolder">Vehicle:</span> <%= vehicle.vehicle %> <br />
+          <span class="bolder">Plate:</span> <%= vehicle.plate %> <br />
+          <span class="bolder">Insurance Status:</span> <%= vehicle.in_status %>
+          <br />
+        </li>
+        <% }) %>
+         <% } else { %>
+        <li class="list-group-item bg-dark border-dark">
+          There are no vehicles registered to this company.
+        </li>
+        <% } %>
+      </ul>
+    </div>
+
+    <!-- Awaiting  -->
+    <div
+      class="tab-pane fade mt-2"
+      id="awaiting"
+      role="tabpanel"
+      aria-labelledby="profile-tab"
+    >
+      <h1 class="card-title mt-1">Awaiting Approval</h1>
+      <ul class="list-group mt-1">
+        <% if (awaitingEmployees.length >0) { %> <% awaitingEmployees.forEach(employee => { %>
+        <li class="list-group-item bg-dark border-dark text-light cap">
+          <span class="bolder">Name:</span> <%= employee.full_name %> <br />
+          <div class="float-right">
+            <a class="btn btn-success" href="/company/<%= req.params.citizenId %>-<%= req.params.company %>/accept/<%= employee.id %>">Accept</a>
+            <a class="btn btn-danger" href="/company/<%= req.params.citizenId %>-<%= req.params.company %>/decline/<%= employee.id %>">Decline</a>
+          </div>
+        </li>
+        <% }) %>
+         <% } else { %>
+        <li class="list-group-item bg-dark border-dark">
+          There's no employees awaiting approval.
+        </li>
+        <% } %>
+      </ul>
+    </div>
+  </div>
+</div>

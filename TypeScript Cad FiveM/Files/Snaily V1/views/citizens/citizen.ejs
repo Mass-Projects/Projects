@@ -1,0 +1,183 @@
+<%- include("../partials/header.ejs") %>
+
+<div class="container mt-3">
+  <h3 class="card-title cap text-light">
+    Welcome back <%= username %> - AOP: <%= aop %>
+  </h3>
+  <div class="users-list">
+    <% if(message != ''){ %>
+    <div
+      class="alert alert-danger alert-dismissible fade show"
+      role="alert"
+    >
+      <%= message %>
+      <button
+        type="button"
+        class="close"
+        data-dismiss="alert"
+        aria-label="Close"
+      >
+        <span aria-hidden="true">&times;</span>
+      </button>
+    </div>
+    <% } %>
+    <% if(messageG != ''){ %>
+    <div
+      class="alert alert-success alert-dismissible fade show"
+      role="alert"
+    >
+      <%= messageG %>
+      <button
+        type="button"
+        class="close"
+        data-dismiss="alert"
+        aria-label="Close"
+      >
+        <span aria-hidden="true">&times;</span>
+      </button>
+    </div>
+    <% } %>
+
+    <ul class="list-group" >
+    <div class="container grid">
+      <div class="row">
+        <a class="btn btn-danger col" href="/logout">Logout  | <img class="testing" src="/icons/internal/logout.png" alt="logout"></a>
+        <a class="btn btn-primary col ml-1" href="/account/edit"
+          >Edit Account  | <img class="testing" src="/icons/internal/edit.png" alt="edit"></a
+        >
+      </div>
+      <div class="row mt-1">
+        <a href="/citizen/add" class="btn btn-primary cap col"
+          >add a new citizen</a
+        >
+        <a class="btn btn-primary cap col ml-1" href="/c/vehicle/register"
+          >register a car</a
+        >
+        <a
+        class="btn btn-primary cap col ml-1"
+        href="/c/weapons/register"
+        >register a weapon</a
+      >
+      </div>
+      <div class="row mt-1">
+        <a
+        href="/company"
+        class="btn btn-primary cap col col"
+        >Manage Employment Status</a
+      >
+      <a
+        href="#towModal"
+        class="btn btn-primary cap col ml-1"
+        data-toggle="modal"
+        >Call Tow Service</a
+      >
+      <a
+        href="#emergencyCall"
+        class="btn btn-primary cap col ml-1"
+        data-toggle="modal"
+        >Call Emergency Services</a
+      >
+      </div>
+    </div>
+
+      
+      
+      
+      
+    <% if (citizen.length > 0) {%>
+<% citizen.forEach((value, index) => { %>
+      <li class="list-group-item mt-2 bg-dark text-light">
+        <%= ++index %> | <%= value.full_name %> | <%= value.birth %>
+        <a
+          href="/citizen/<%= value.id %>-<%= value.full_name %>"
+          class="btn btn-success float-right"
+          >More Info</a
+        >
+      </li>
+
+      <% }) %>
+      <%} else { %>
+      <div class="alert alert-primary mt-5" role="alert">
+  you don't have any citizens! Create one <a href="/citizen/add">Here</a>
+</div>
+<%} %>
+      
+
+      <div class="modal fade" id="towModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+          <div class="modal-content">
+            <div class="modal-header">
+              <h5 class="modal-title" id="exampleModalLabel">Call Tow Service</h5>
+              <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+              </button>
+            </div>
+            <div class="modal-body">
+              <form action="/call/create-tow-call" method="POST">
+                  <div class="form-group">
+                    <label for="exampleInputEmail1">Call Description</label>
+                    <textarea name="description" id="description" cols="30" rows="5" placeholder="Description" class="form-control" required></textarea>
+                  </div>
+                  <div class="form-group">
+                    <label for="exampleInputEmail1">Caller Name</label>
+                    <input type="text" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="Name" name="name">
+                  </div>
+                  <div class="form-group">
+                    <label for="exampleInputPassword1">Caller Location</label>
+                    <input type="text" class="form-control" id="exampleInputPassword1" placeholder="Location" name="location" required>
+                  </div>
+                </div>
+                <div class="modal-footer">
+                  <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                  <button type="submit" class="btn btn-primary">Call</button>
+                </form>
+                </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- 911 Call -->
+      <div class="modal fade" id="emergencyCall" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+          <div class="modal-content">
+            <div class="modal-header">
+              <h5 class="modal-title" id="exampleModalLabel">911 Emergency Service</h5>
+              <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+              </button>
+            </div>
+            <div class="modal-body">
+              <form action="/call/citizen/create-911-call" method="POST">
+                  <div class="form-group">
+                    <label for="exampleInputEmail1">Call Description</label>
+                    <textarea name="description" id="description" cols="30" rows="5" placeholder="Description" class="form-control" required></textarea>
+                  </div>
+                  <div class="form-group">
+                    <label for="exampleInputEmail1">Caller Name</label>
+                    <input type="text" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="Name" name="name">
+                  </div>
+                  <div class="form-group">
+                    <label for="exampleInputPassword1">Caller Location</label>
+                    <input type="text" class="form-control" id="exampleInputPassword1" placeholder="Location" name="location" required>
+                  </div>
+                </div>
+                <div class="modal-footer">
+                  <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                  <button type="submit" class="btn btn-primary">Call</button>
+                </form>
+                </div>
+          </div>
+        </div>
+      </div>
+
+    </ul>
+    <div class="mb-4"></div>
+  </div>
+</div>
+
+
+<div class="fixed-bottom">
+  <div class="card" style="width: 18rem;">
+    <div class="card-header"><span class="bolder"> Current CAD:</span> <%= cadName %> </div>
+  </div>
+</div>

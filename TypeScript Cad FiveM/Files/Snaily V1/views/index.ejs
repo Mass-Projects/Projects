@@ -1,0 +1,32 @@
+<%- include("./partials/header.ejs") %>
+
+<div class="container mx-auto">
+  <h1 class="card-title text-center mt-3 text-light"><%= cad_name %></h1>
+
+  <ul class="list-group mt-2">
+    <% if (!loggedin) { %>
+    <a
+      href="/auth/login"
+      class="btn list-group-item text-light bg-dark border-dark"
+    >
+      Login in
+    </a>
+    <a
+      href="/auth/register"
+      class="btn list-group-item mt-2 text-light bg-dark border-dark"
+    >
+      Register
+    </a>
+    <% } else {%>
+    <h3 class="card-title cap text-center text-light">
+      Welcome Back <%= username %>
+    </h3>
+    <a
+      href="/citizen"
+      class="btn list-group-item text-light bg-dark border-dark"
+    >
+      Citizen Page
+    </a>
+    <% } %>
+  </ul>
+</div>

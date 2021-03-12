@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title><%= title %></title>
+    <meta name="description" content="<%= desc %>" />
+
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="/css/style.css" />
+
+    <!-- Bootstrap CSS -->
+    <link
+      rel="stylesheet"
+      href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
+      integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T"
+      crossorigin="anonymous"
+    />
+
+    <!-- JQuery -->
+    <script
+      src="https://code.jquery.com/jquery-3.4.1.slim.min.js"
+      integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n"
+      crossorigin="anonymous"
+    ></script>
+
+    <!-- Popper Js -->
+    <script
+      src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js"
+      integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo"
+      crossorigin="anonymous"
+    ></script>
+
+    <!-- Bootstrap Js -->
+    <script
+      src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"
+      integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6"
+      crossorigin="anonymous"
+    ></script>
+  </head>
+
+  <body>
+    <nav class="navbar navbar-expand-lg navbar-light bg-secondary sticky-top">
+      <a class="navbar-brand text-light" href="/">
+        <img src="/icons/icon.png" alt="d" class="icon">
+      </a>
+      <button
+        class="navbar-toggler"
+        type="button"
+        data-toggle="collapse"
+        data-target="#navbarSupportedContent"
+        aria-controls="navbarSupportedContent"
+        aria-expanded="false"
+        aria-label="Toggle navigation"
+      >
+        <span class="navbar-toggler-icon text-light"></span>
+      </button>
+
+      <div class="collapse navbar-collapse" id="navbarSupportedContent">
+        <ul class="navbar-nav mr-auto">
+          <li class="nav-item">
+            <a class="nav-link text-light" href="/officers/dash">Police Dept.   <img class="testing" src="/icons/internal/Police_Dept.png" alt="officer"></a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link text-light" href="/dispatch">Dispatch  <img class="testing" src="/icons/internal/Dispatch.png" alt="Dispatch"></a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link text-light" href="/ems-fd/dash">EMS/FD  <img class="testing" src="/icons/internal/fire.png" alt="fire"></a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link text-light" href="/citizen">Citizens  <img class="testing" src="/icons/internal/citizen.png" alt="citizen"></a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link text-light" href="/tow">Tow  <img class="testing" src="/icons/internal/tow.png" alt="tow"></a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link text-light" href="/bleeter">Bleeter  <img class="testing" src="/icons/internal/bleeter.png" alt="bleeter"></a>
+          </li>
+
+          <% if (isAdmin === 'admin' || isAdmin === 'moderator' || isAdmin === 'owner') {%>
+          <li class="nav-item">
+            <a class="nav-link text-light" href="/admin">Admin <img class="testing" src="/icons/internal/gear.png" alt="admin"></a>
+          </li>
+          <%} else {%>
+          <li class="nav-item"></li>
+          <%} %>
+          <li class="nav-item">
+            <button class="nav-link btn text-light  margin-left-10" onclick="openFullscreen()">
+              <img class="testing" src="/icons/internal/fullscreen.png" alt="admin">
+            </button>
+          </li>
+          <!-- <div class="btn-group btn-group-sm nav-item">
+            <button
+              type="button"
+              data-toggle="dropdown"
+              aria-haspopup="true"
+              aria-expanded="false"
+              class="btn btn-dark dropdown-toggle"
+            >
+              Updates <span class="badge badge-light">1</span>
+            </button>
+            <div class="dropdown-menu">
+              <li class="dropdown-item">
+                - Fixed Name Search dispatch
+              </li>
+              <small class="dropdown-item pn border-top border-dark"
+                >These messages will disappear after a few days
+              </small>
+            </div>
+          </div> -->
+        </ul>
+      </div>
+    </nav>
+
+    <script>
+      var elem = document.body;
+      function openFullscreen() {
+        if (elem.requestFullscreen) {
+          elem.requestFullscreen();
+        } else if (elem.mozRequestFullScreen) {
+          /* Firefox */
+          elem.mozRequestFullScreen();
+        } else if (elem.webkitRequestFullscreen) {
+          /* Chrome, Safari & Opera */
+          elem.webkitRequestFullscreen();
+        } else if (elem.msRequestFullscreen) {
+          /* IE/Edge */
+          elem.msRequestFullscreen();
+        }
+      }
+
+      // Set The background color
+      document.body.style.backgroundColor = '#191919';
+    </script>
+  </body>
+</html>

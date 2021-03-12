@@ -1,0 +1,84 @@
+<%- include("../../partials/header.ejs") %>
+<form
+  class="container mt-3"
+  action=""
+  method="POST"
+>
+  <div class="form-group">
+    <label for="exampleInputEmail1" class="text-light">Vehicle Plate</label>
+    <input
+      name="plate"
+      type="text"
+      class="form-control pn  text-light bg-dark border-dark "
+      id="exampleInputEmail1"
+      aria-describedby="emailHelp"
+      placeholder="Vehicle Plate"
+      value="<%= current.plate %>"
+      title="You cannot edit the vehicle plate!"
+    />
+  </div>
+  <div class="form-group">
+    <label for="exampleInputEmail1" class="text-light">Vehicle Owner</label>
+    <input
+      name="owner"
+      type="text"
+      class="form-control pn text-light bg-dark border-dark "
+      id="exampleInputEmail1"
+      aria-describedby="emailHelp"
+      placeholder="Vehicle Plate"
+      value="<%= current.owner %>"
+      title="You cannot edit the vehicle owner!"
+    />
+  </div>
+
+  <div class="form-group">
+    <label for="exampleInputEmail1" class="text-light"
+      >Enter Vehicle Color</label
+    >
+    <input
+      name="color"
+      type="text"
+      class="form-control  text-light bg-dark border-dark "
+      id="exampleInputEmail1"
+      aria-describedby="emailHelp"
+      placeholder="Car Name"
+      value="<%= current.color %>"
+    />
+  </div>
+  <div class="form-group">
+    <label for="dept" class="text-light ">Enter Vehicle Insurance Status</label>
+    <select
+      type="text"
+      name="status"
+      class="form-control text-light border-dark bg-dark"
+      id="status"
+    >
+    <option value="<%= current.in_status %>"><%= current.in_status %></option>
+    <option value="--------">--------</option>
+    <% legal.forEach(name => { %>
+      <option value="<%= name.status %>"><%= name.status %></option>
+      <% }) %>
+    </select>
+  </div>
+  <div class="form-group">
+    <label for="dept" class="text-light ">(Only if selected company) Select Company</label>
+    <select
+      type="text"
+      name="companies"
+      class="form-control text-light border-dark bg-dark"
+      id="companies"
+    >
+    <option value="<%= current.company %>"><%= current.company %></option>
+    <option value="--------">--------</option>
+    <% companies.forEach(company => { %>
+      <option value="<%= company.business_name %>"><%= company.business_name %></option>
+      <% }) %>
+    </select>
+  </div>
+  <button type="submit" class="btn btn-success float-right">Update</button>
+  <a
+    href="/citizen/"
+    class="cancel-btn btn btn-danger float-right"
+    >Cancel</a
+  >
+</form>

@@ -1,0 +1,138 @@
+<%- include("../partials/header.ejs") %> 
+
+
+<div class="container-fluid">
+  <div class="row">
+    <%-
+    include("../partials/admin-header.ejs") %>
+    
+  <main role="main" class="col-md-9 ml-sm-auto col-lg-10 text-light mt-2">
+    <% if(messageG != ''){ %>
+      <div class="alert alert-success alert-dismissible fade show" role="alert">
+        <%= messageG %>
+        <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <% } %>
+      <h1 class="card-title text-light">CAD Settings</h1>
+    
+      <div class="card bg-secondary">
+        <h4 class="card-title text-light p-2">Downloads</h4>
+          <a download href="/downloads/snailyCAD-towservice.zip" class="ml-2 mb-2 mr-2 btn btn-primary">
+          FiveM call tow service integration (/calltow)</a>
+          <a download href="/downloads/snailyCAD-911service.zip" class="ml-2 mb-2 mr-2 btn btn-primary">
+          FiveM call 911 service integration (/call911)</a>
+      </div>
+    
+      <form action="" method="post" class="card bg-secondary mt-3">
+        <h4 class="card-title text-light p-2">General Settings</h4>
+        <!-- CAD Name -->
+        <div class="ml-2 mr-2 form-group">
+          <label for="name" class="text-light">CAD Name</label>
+          <input
+            type="text"
+            id="name"
+            name="cad_name"
+            class="form-control bg-dark border-dark text-light"
+            value="<%= current.cad_name %>"
+          />
+        </div>
+
+        <!-- AOP -->
+        <div class="ml-2 mr-2 form-group">
+          <label for="name" class="text-light">Area Of Roleplay (AOP)</label>
+          <input
+            type="text"
+            id="aop"
+            name="aop"
+            class="form-control bg-dark border-dark text-light"
+            value="<%= current.AOP %>"
+          />
+        </div>
+    
+    
+    
+        <!-- Whitelisted -->
+        <div class="form-group p-2">
+          <% if(current.whitelisted === "true") { %>
+            <label for="">This Whitelists the CAD for users to directly login, Administrators will need to manually accept or deny these users</label>
+          <div class="custom-control custom-switch">
+            <input type="checkbox" name="whitelist"  checked class="custom-control-input" id="customSwitch1">
+            <label class="custom-control-label text-light" for="customSwitch1">Whitelisted</label>
+          </div>
+        <% } else { %>
+          <label for="">This Whitelists the CAD for users to directly login, Administrators will need to manually accept or deny these users</label>
+          <div class="custom-control custom-switch">
+            <input type="checkbox" name="whitelist" class="custom-control-input" id="customSwitch1">
+            <label class="custom-control-label text-light" for="customSwitch1">Whitelisted</label>
+          </div>
+        <% } %>
+        </div>
+
+        <div class="form-group p-2">
+          <% if(current.tow_whitelisted === "yes") { %>
+          <div class="custom-control custom-switch">
+            <input type="checkbox" name="whitelist"  checked class="custom-control-input" id="tow_whitelist">
+            <label class="custom-control-label text-light" for="tow_whitelist">Tow Whitelisted</label>
+          </div>
+        <% } else { %>
+          <div class="custom-control custom-switch">
+            <input type="checkbox" name="tow_whitelist" class="custom-control-input" id="tow_whitelist">
+            <label class="custom-control-label text-light" for="tow_whitelist">Tow Whitelisted</label>
+          </div>
+        <% } %>
+        </div>
+        <button type="submit" class=" btn btn-success ml-2 mb-2 mr-2">
+          Update
+        </button>
+      </form>
+    
+    
+      
+      <div
+        
+        class="card bg-secondary mt-3"
+      >
+        <h4 class="card-title text-light p-2">Site Actions</h4>
+        <div
+          class="alert alert-danger mr-2 ml-2 alert-dismissible fade show"
+          role="alert"
+        >
+          <span class="bolder">Note:</span> Anything that gets deleted can NOT be
+          undone!
+    
+          </button>
+        </div>
+        <div class="ml-2 form-group">
+          <button type="button" data-toggle="modal" data-target="#deleteCitizens" class="btn btn-danger cancel-btn">
+            Delete All Citizens
+          </button>
+          <div class="modal fade" id="deleteCitizens" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+            <div class="modal-dialog" role="document">
+              <div class="modal-content bg-dark border-dark text-light">
+                <div class="modal-header">
+                  <h5 class="modal-title" id="exampleModalLabel">Delete All Citizens?</h5>
+                  <button type="button" class="close text-light" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                  </button>
+                </div>
+                <form action="/admin/delete-citizens" method="post">
+                <div class="modal-body">
+                  <h1>Are you sure you want to delete all citizens?</h1>
+                </div>
+                <div class="modal-footer">
+                  <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
+                  <button type="submit" class="btn btn-danger">Delete Citizens</button>
+                </div>       
+              </form>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+
+  </main> 
+  </div>
+</div>

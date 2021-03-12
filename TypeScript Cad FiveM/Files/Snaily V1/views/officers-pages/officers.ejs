@@ -1,0 +1,39 @@
+<%- include("../partials/header.ejs") %>
+
+<div class="container">
+  <h1 class="card-title mt-3 text-light">
+    Police Department - AOP: <%= cad.AOP %>
+  </h1>
+
+  <ul class="list-group">
+    <a href="/officers/dash" class="btn btn-primary">Police Dashboard</a>
+    <a href="/officers/add" class="btn btn-primary mt-2">Add New Officer</a>
+ <% if (officers.length > 0) { %>
+    <% officers.forEach((officer, index) => { %>
+
+    <li class="list-group-item mt-2 text-light bg-dark">
+        <%= ++index %> | <%= officer.officer_dept %> | <%= officer.officer_name
+        %>
+
+        <div class="float-right">
+          <a href="/officers/dash/status/108/<%= officer.id %>" class="btn btn-primary"
+            >Go On-duty</a
+          >
+          <a href="/officers/delete/<%= officer.id %>" class="btn btn-danger"
+            >Delete Current Officer</a
+          >
+        </div>
+      <p>
+        <span class="bolder"> Current Status:</span> <%= officer.status %>
+         <%= officer.status2 %>
+      </p>
+    </li>
+    <% }) %>
+    
+    <% } else { %>
+    <li class="list-group-item bg-dark text-light">
+      You don't have any officers. Create one <a href="/officers/add">here</a>
+    </li>
+    <% } %> 
+  </ul>
+</div>

@@ -1,0 +1,882 @@
+<%- include("../partials/header.ejs") %>
+
+
+  <div class="container-fluid mt-3">
+    <h1 class="card-title text-light">Police Dept. <button class="float-right btn btn-success"  onclick="refresh()">Refresh</button></h1>
+    <% if(messageG != ''){ %>
+      <div
+        class="alert alert-success alert-dismissible fade show"
+        role="alert"
+      >
+        <%= messageG %>
+        <button
+          type="button"
+          class="close"
+          data-dismiss="alert"
+          aria-label="Close"
+        >
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <% } %>
+    <div class="card border-dark bg-dark text-light">
+      <div class="card-header">
+          <div class="card-title d-flex justify-content-between">
+            <h1>Utility Panel</h1>
+            <div class="">
+              <% if(currentStatus) { %>
+                Current Status: <%= currentStatus.status2 %>
+              <% } else { %>
+
+              <%} %>
+            </div>
+          </div>
+      </div>
+      <div class="card-body row mx-auto">
+          <a href="/officers/myofficers" class="btn btn-primary ml-2 mt-1">My Officers | <img class="testing" src="/icons/internal/My_Officer.png" alt="Penal_Code"></a>
+          <a href="#nameSearch" data-toggle="modal" class="btn btn-secondary ml-2 mt-1">Name Search | <img class="testing" src="/icons/internal/name_search.png" alt="name"></a>
+          <a href="#plateSearch" data-toggle="modal" class="btn btn-secondary ml-2 mt-1">Plate Search | <img class="testing" src="/icons/internal/Plate_search.png" alt="plate"></a>
+          <a href="#weaponSearch" data-toggle="modal" class="btn btn-secondary ml-2 mt-1">Weapon Search | <img class="testing" src="/icons/internal/weapon.png" alt="weapon"></a>
+          <a href="#writtenWarning"  data-toggle="modal" class="btn btn-secondary ml-2 mt-1">Create Written Warning  | <img class="testing" src="/icons/internal/warning.png" alt="warning"></a>
+          <a href="#newTicket"  data-toggle="modal" class="btn btn-secondary ml-2 mt-1">Create Ticket  | <img class="testing" src="/icons/internal/Create_Ticket.png" alt="Create_Ticket"></a>
+          <a href="#arrestReport"  data-toggle="modal" class="btn btn-secondary ml-2 mt-1">Create Arrest Report  | <img class="testing" src="/icons/internal/arrest.png" alt="arrest"></a>
+          <a href="#boloModal" data-toggle="modal" class="btn btn-secondary ml-2 mt-1">Create Bolo | <img class="testing" src="/icons/internal/bolo.png" alt="bolo"></a>
+          <a href="/officers/penal-codes"  class="btn btn-secondary ml-2 mt-1" >Penal Codes  | <img class="testing" src="/icons/internal/Penal_Code.png" alt="Penal_Code"></a>
+          <a href="/officers/codes"  class="btn btn-secondary ml-2 mt-1" >10 Codes | <img class="testing" src="/icons/internal/list.png" alt="10codes"></a>
+          <a href="#notepad"  data-toggle="modal" class="btn btn-secondary ml-2 mt-1" >Notepad | <img class="testing" src="/icons/internal/Notepad.png" alt="notepad"></a>
+      </div>
+      <div class="card-footer">
+        <div class="d-flex justify-content-center">
+          <a style="width: 100px;" href="/officers/dash/status/10-7/1" class="btn btn-secondary mr-1">10-7</a>
+          <a style="width: 100px;" href="/officers/dash/status/10-6/1" class="btn btn-secondary mr-1">10-6</a>
+          <a style="width: 100px;" href="/officers/dash/status/10-6/1" class="btn btn-secondary mr-1">10-10</a>
+          <a style="width: 100px;" href="/officers/dash/status/10-14/1" class="btn btn-secondary  mr-1">10-14</a>
+          <a style="width: 100px;" href="/officers/dash/status/10-15/1" class="btn btn-secondary  mr-1">10-15</a>
+          <a style="width: 100px;" href="/officers/dash/status/10-17/1" class="btn btn-secondary  mr-1">10-17</a>
+          <a style="width: 100px;" href="/officers/dash/status/10-38/1" class="btn btn-secondary  mr-1">10-38</a>
+          <a style="width: 100px;" href="/officers/dash/status/10-97/1" class="btn btn-secondary  mr-1">10-97</a>
+          <a style="width: 100px;" href="/officers/dash/status/code 4/1" class="btn btn-secondary mr-1">code 4</a>
+          <a style="width: 100px;" href="/officers/dash/status/code 5/1" class="btn btn-secondary mr-1">code 5</a>
+          <a style="width: 100px;" href="/officers/dash/status/code 6/1" class="btn btn-secondary mr-1">code 6</a>
+          <a style="width: 100px;" href="/officers/dash/status/code 7/1" class="btn btn-secondary mr-1">code 7</a>
+        </div>
+      </div>
+    </div>
+
+   
+      <!-- 911 Calls -->
+      <div class="row">
+        <div class="col">
+          <div class="mt-2">
+            <ul class="list-group scroll-bar overflow-auto mt-3" style="max-height: 20rem;">
+              <div class="active list-group-item text-light  sticky-top">Active 911 Calls</div>
+              <% if (calls.length > 0) { %>
+               <table class="table table-dark">
+                   <thead>
+                     <tr>
+                       <th scope="col">#</th>
+                       <th scope="col">Caller Name</th>
+                       <th scope="col">Caller Location</th>
+                       <th scope="col">Call Description</th>
+                       <th scope="col">Assigned Unit</th>
+                       <th scope="col">Status</th>
+                       <!-- <th scope="col">Actions</th> -->
+                     </tr>
+                   </thead>
+                   <tbody>
+                      <% calls.forEach((call, index) => { %>
+                        <tr>
+                          <th scope="row"><%= ++index %></th>
+                          <td class="cap"><%= call.name %></td>
+                          <td class="cap"><%= call.location %></td>
+                          <td class="cap"><%= call.description %></td>
+                          <td class="cap"><%= call.assigned_unit %></td>
+                          <td class="cap"><%= call.status %></td>
+                          <!-- <td> <button class="btn btn-primary" data-target="#viewCall<%= call.id %>" data-toggle="modal">View Call </button> </td> -->
+                        </tr>
+                        <!-- <div class="modal fade" id="viewCall<%= call.id %>" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                          <div class="modal-dialog" role="document">
+                            <div class="modal-content bg-dark border-dark text-light">
+                              <div class="modal-header">
+                                <h5 class="modal-title" id="exampleModalLabel">View 911 Call</h5>
+                                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                  <span aria-hidden="true" class="text-light">&times;</span>
+                                </button>
+                              </div>
+                              <div class="modal-body">
+                                <form action="/global/officers/update-911-call-<%= call.id %>" method="POST">
+                                    <div class="form-group">
+                                      <label for="location">Call Location</label>
+                                      <input type="text" class="cap form-control bg-secondary border-secondary text-light" name="location" value="<%= call.location %>" id="location" aria-describedby="emailHelp">
+                                    </div>
+                                    <div class="form-group">
+                                      <label for="exampleInputPassword1" class="bolder">Call Status</label>
+                                      <div>
+                                        <span><%= call.status %></span>
+                                      </div>
+                                    </div>
+                                    <div class="form-group">
+                                      <label for="officer" class="bolder">Assigned Units</label>
+                                      <div class="">
+                                        <%= call.assigned_unit %>
+                                      </div>
+                                    </div>
+                                  </div>
+                                  <div class="modal-footer">
+                                    <a href="/global/officers/cancel-911-call-<%= call.id %>" class="container btn btn-danger">End Call</a>
+                                    <button type="submit" class="container btn btn-success">Update Call</button>
+                                  </div>
+                                </form>
+                            </div>
+                          </div> -->
+                        </div>
+                    <%}) %>
+                    <% } else { %>
+                      <li class="list-group-item bg-dark text-light">
+                        There're no active calls.
+                      </li>
+                      <% } %>
+                   </tbody>
+                 </table>
+            </ul>
+          </div>
+          <div class="mt-2">
+            <ul class="list-group scroll-bar overflow-auto mt-3" style="max-height: 20rem;">
+              <div class="active list-group-item text-light sticky-top">Active Bolos </div>
+              <% if (bolos.length > 0) { %>
+                <% bolos.forEach(bolo => { %>
+                  <li class="list-group-item bg-dark text-light">
+                    <%= bolo.description %>
+                    <a href="/global/officers/delete-bolo-<%= bolo.id %>" class="btn btn-danger float-right">Remove Bolo</a>
+                  </li>
+              <%}) %>
+              <% } else { %>
+                <li class="list-group-item bg-dark text-light">
+                  There're no active bolos.
+                </li>
+                <% } %>
+            </ul>
+          </div>
+        </div>
+      </div>
+
+
+      <ul class="list-group mb-4 mt-3" >
+        <div class="active list-group-item text-light">Quick Create Warrant</div>
+        <form class="list-group-item bg-dark border-dark text-light" action="/global/officers/add-warrant" method="post">
+          <div class="form-group">
+            <label for="name">Full Name</label>
+            <input
+              type="text"
+              name="name"
+              class="form-control text-light border-secondary bg-secondary"
+              id="name"
+              aria-describedby="emailHelp"
+              placeholder="Full Name"
+            required
+            />
+          </div>
+          <div class="form-group">
+            <label for="From">Status</label>
+            <select name="status" id="status" class="form-control border-secondary bg-secondary text-light">
+              <option value="Active">Active</option>
+              <option value="Inactive">Inactive</option>
+            </select>
+          </div>
+          <div class="form-group">
+            <label for="exampleInputPassword1">Details</label>
+            <input
+              type="text"
+              name="reason"
+              class="form-control text-light border-secondary bg-secondary"
+              id="exampleInputPassword2"
+              placeholder="Details"
+              required
+            />
+          </div>
+            <button type="submit" class="container-fluid btn btn-success">Create Warrant</button>
+        </form>
+    </ul>
+  
+
+
+    <!-- Modals -->
+
+     <!-- Notepad -->
+     <div class="modal fade" id="notepad" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+      <div class="modal-dialog" role="document">
+        <div class="modal-content bg-dark border-dark text-light">
+          <div class="modal-header">
+            <h5 class="modal-title" id="exampleModalLabel">Notepad</h5>
+            <button type="button" class="close text-light" data-dismiss="modal" aria-label="Close">
+              <span aria-hidden="true">&times;</span>
+            </button>
+          </div>
+          <div class="modal-body">
+            <textarea name="notes" id="notes" cols="30" rows="15" class="form-control text-light bg-secondary border-secondary"></textarea>
+            <p>This gets reset after a page reload</p>
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-secondary container" data-dismiss="modal">Close</button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+  <!-- BOLOs -->
+    <div class="modal fade" id="boloModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+      <div class="modal-dialog" role="document">
+        <div class="modal-content bg-dark border-dark">
+          <div class="modal-header">
+            <h5 class="modal-title text-light" id="exampleModalLabel">Create Bolo</h5>
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+              <span aria-hidden="true">&times;</span>
+            </button>
+          </div>
+          <div class="modal-body">
+            <form action="/global/officers/add-bolo" id="modal" method="post">
+                <div class="form-group">
+                    <label for="bolo" class="text-light">Bolo Description</label>
+                    <textarea name="bolo_desc" id="bolo" cols="30" rows="5" maxlength="1800" required minlength="10" class="form-control text-light bg-secondary border-secondary" placeholder="Bolo Description, Min Length of 10 characters"></textarea>
+                </div>
+
+
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
+          <button type="submit" class="btn btn-primary">Create Bolo</button>
+      </div>
+      </form>
+        </div>
+      </div>
+    </div>
+    <!-- New Ticket -->
+    <div class="modal fade mx-auto" id="newTicket" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+      <div class="modal-dialog modal-xl"  role="document">
+        <div class="modal-content bg-dark border-dark text-light" >
+          <div class="modal-header">
+            <h5 class="modal-title" id="exampleModalLabel">New Ticket</h5>
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+              <span aria-hidden="true">&times;</span>
+            </button>
+          </div>
+          <div class="modal-body">
+            <form action="/officers/dash/add-offence" id="modal" method="post">
+              <!-- Violations -->
+              <div class="form-group">
+                <label for="exampleInputEmail1">Violations</label>
+                <input
+                  type="text"
+                  list="penals"
+                  name="violations"
+                  class="form-control bg-secondary border-secondary text-light"
+                  id="exampleInputEmail1"
+                  aria-describedby="emailHelp"
+                  required
+                  placeholder="Penal Code"
+                />
+                <datalist id="penals">
+                  <% penals.forEach(penal => {%>
+                    <option value="<%= penal.title %>"></option>
+                    <% }) %>
+                </datalist>
+              </div>
+              <!-- Name -->
+              <div class="form-group">
+                <label for="exampleInputPassword1">Name</label>
+                <input
+                  type="text"
+                  name="name"
+                  class="form-control bg-secondary border-secondary text-light"
+                  id="warrantCitizensSearch"
+                  required
+                  list="citizen2"
+                  placeholder="Name of subject"
+                  onkeypress="warrantCitizens()"
+                />
+                <datalist id="citizens2">
+                  <% citizens.forEach(citizen => { %>
+                    <option value="<%= citizen.full_name %>"><%= citizen.full_name %></option>
+                  <% }) %>
+                </datalist>
+              </div>
+              <!-- Officer Name -->
+              <div class="form-group">
+                <label for="exampleInputPassword1">Officer Name</label>
+                <input
+                  type="text"
+                  name="officer_name"
+                  class="form-control bg-secondary border-secondary text-light"
+                  id="exampleInputPassword1"
+                  required
+                  placeholder="Name of officer"
+                />
+              </div>
+              <!-- Nearest Postal -->
+              <div class="form-group">
+                <label for="exampleInputPassword1">Nearest Postal:</label>
+                <input
+                  type="text"
+                  name="postal"
+                  class="form-control bg-secondary border-secondary text-light"
+                  id="postal"
+                  placeholder="Nearest Postal (not required)"
+                />
+              </div>
+            
+              <div class="form-group">
+                <label for="exampleInputPassword1">Notes:</label>
+                <textarea name="notes" id="notes" cols="5" rows="5" class="form-control bg-secondary border-secondary text-light" placeholder="Notes (not required)"></textarea>
+              </div>
+
+
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
+          <button type="submit" class="btn btn-primary">Create Ticket</button>
+      </div>
+      </form>
+        </div>
+      </div>
+    </div>
+
+    <!-- New Arrest Report -->
+    <div class="modal fade mx-auto" id="arrestReport" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+      <div class="modal-dialog modal-xl"  role="document">
+        <div class="modal-content bg-dark border-dark text-light" >
+          <div class="modal-header">
+            <h5 class="modal-title" id="exampleModalLabel">New Ticket</h5>
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+              <span aria-hidden="true">&times;</span>
+            </button>
+          </div>
+          <div class="modal-body">
+            <form action="/officers/dash/create-arrest-report" id="modal" method="post">
+              <!-- Name -->
+              <div class="form-group">
+                <label for="exampleInputEmail1">Arrestee Name</label>
+                <input
+                  type="text"
+                  name="name"
+                  class="form-control bg-secondary border-secondary text-light"
+                  id="warrantCitizensSearch"
+                  required
+                  list="citizen2"
+                  placeholder="Name of subject"
+                  onkeypress="warrantCitizens()"
+                />
+              </div>
+              <!-- Officer Name -->
+              <div class="form-group">
+                <label for="exampleInputPassword1">Officer Name</label>
+                <input
+                  type="text"
+                  name="officer_name"
+                  class="form-control bg-secondary border-secondary text-light"
+                  id="exampleInputPassword1"
+                  required
+                  placeholder="Name of officer"
+                />
+              </div>
+              <!-- Charges -->
+              <div class="form-group">
+                <label for="exampleInputEmail1">Charges</label>
+                <input
+                  type="text"
+                  list="charges"
+                  name="charges"
+                  class="form-control bg-secondary border-secondary text-light"
+                  id="exampleInputEmail1"
+                  aria-describedby="emailHelp"
+                  required
+                  placeholder="Penal Code"
+                />
+                <datalist id="charges">
+                  <% penals.forEach(penal => {%>
+                    <option value="<%= penal.title %>"></option>
+                    <% }) %>
+                </datalist>
+              </div>
+              <!-- Nearest Postal -->
+              <div class="form-group">
+                <label for="exampleInputPassword1">Nearest Postal:</label>
+                <input
+                  type="text"
+                  name="postal"
+                  class="form-control bg-secondary border-secondary text-light"
+                  id="postal"
+                  placeholder="Nearest Postal"
+                />
+              </div>
+            
+              <div class="form-group">
+                <label for="exampleInputPassword1">Notes:</label>
+                <textarea name="notes" id="notes" cols="5" rows="5" class="form-control bg-secondary border-secondary text-light" placeholder="Notes"></textarea>
+              </div>
+
+
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
+          <button type="submit" class="btn btn-primary">Create Ticket</button>
+      </div>
+      </form>
+        </div>
+      </div>
+    </div>
+
+     <!-- writtenWarning -->
+     <div class="modal fade mx-auto" id="writtenWarning" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+      <div class="modal-dialog modal-xl"  role="document">
+        <div class="modal-content bg-dark border-dark text-light" >
+          <div class="modal-header">
+            <h5 class="modal-title" id="exampleModalLabel">New Written Warning</h5>
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+              <span aria-hidden="true">&times;</span>
+            </button>
+          </div>
+          <div class="modal-body">
+            <form action="/officers/dash/create-written-warning" id="modal" method="post">
+              <!-- Name -->
+              <div class="form-group">
+                <label for="exampleInputEmail1">Name</label>
+                <input
+                  type="text"
+                  name="name"
+                  class="form-control bg-secondary border-secondary text-light"
+                  id="warrantCitizensSearch"
+                  required
+                  list="citizen2"
+                  placeholder="Name of subject"
+                  onkeypress="warrantCitizens()"
+                />
+              </div>
+              <!-- Officer Name -->
+              <div class="form-group">
+                <label for="exampleInputPassword1">Officer Name</label>
+                <input
+                  type="text"
+                  name="officer_name"
+                  class="form-control bg-secondary border-secondary text-light"
+                  id="exampleInputPassword1"
+                  required
+                  placeholder="Name of officer"
+                />
+              </div>
+              <!-- Charges -->
+              <div class="form-group">
+                <label for="exampleInputEmail1">Infractions</label>
+                <input
+                  type="text"
+                  list="infractions"
+                  name="infractions"
+                  class="form-control bg-secondary border-secondary text-light"
+                  id="exampleInputEmail1"
+                  aria-describedby="emailHelp"
+                  required
+                  placeholder="Infractions"
+                />
+                <datalist id="infractions">
+                  <% penals.forEach(penal => {%>
+                    <option value="<%= penal.title %>"></option>
+                    <% }) %>
+                </datalist>
+              </div>
+              <!-- Nearest Postal -->
+              <div class="form-group">
+                <label for="exampleInputPassword1">Nearest Postal:</label>
+                <input
+                  type="text"
+                  name="postal"
+                  class="form-control bg-secondary border-secondary text-light"
+                  id="postal"
+                  placeholder="Nearest Postal"
+                />
+              </div>
+            
+              <div class="form-group">
+                <label for="exampleInputPassword1">Notes:</label>
+                <textarea name="notes" id="notes" cols="5" rows="5" class="form-control bg-secondary border-secondary text-light" placeholder="Notes"></textarea>
+              </div>
+
+
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
+          <button type="submit" class="btn btn-primary">Create Written Warning</button>
+      </div>
+      </form>
+        </div>
+      </div>
+    </div>
+
+    <!-- Weapon Search -->
+    <div class="modal fade text-light" id="weaponSearch" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+      <div class="modal-dialog" role="document">
+        <div class="modal-content bg-dark border-dark">
+          <div class="modal-header">
+            <h5 class="modal-title" id="exampleModalLabel">Weapon Search</h5>
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+              <span aria-hidden="true" class="text-light">&times;</span>
+            </button>
+          </div>
+          <div class="modal-body">
+            <form id="modal" onsubmit="event.preventDefault(); return weaponSearch()">
+              <div class="form-group">
+                  <label for="plate" class="text-light">Serial Number</label>
+                  <input type="text" class="form-control text-light bg-secondary border-secondary" required min="1" name="serial_number" id="serial_number" placeholder="Search By Serial Number">
+              </div>
+              <div class="container">
+                <div class="row">
+                  <div id="weapons" class="text-light"></div>
+                </div>
+              </div>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
+        <button type="submit" class="btn btn-primary">Search</button>
+    </div>
+    </form>
+        </div>
+      </div>
+    </div>
+
+    <!-- Plate Search -->
+    <div class="modal fade" id="plateSearch" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+      <div class="modal-dialog" role="document">
+        <div class="modal-content bg-dark border-dark">
+          <div class="modal-header">
+            <h5 class="modal-title text-light" id="exampleModalLabel">Plate Search</h5>
+            <button type="button" class="close text-light" data-dismiss="modal" aria-label="Close">
+              <span aria-hidden="true">&times;</span>
+            </button>
+          </div>
+          <div class="modal-body">
+            <form id="modal" onsubmit="event.preventDefault(); return plateSearch()">
+                <div class="form-group">
+                    <label for="plate" class="text-light">Plate</label>
+                    <input type="text" class="form-control text-light bg-secondary border-secondary" min="1" max="8" maxlength="8" name="plate" id="plateSearchIn" placeholder="Search By Plate">
+                </div>
+                <div class="container">
+                  <div class="row">
+                    <div id="plates" class="text-light"></div>
+                  </div>
+                </div>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
+          <button type="submit" class="btn btn-primary">Search</button>
+      </div>
+      </form>
+        </div>
+      </div>
+    </div>
+
+    <!-- name Search -->
+    <div class="modal fade" id="nameSearch" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+      <div class="modal-dialog modal-xl" role="document">
+        <div class="modal-content bg-dark border-dark">
+          <div class="modal-header">
+            <h5 class="modal-title text-light" id="exampleModalLabel">Name Search</h5>
+            <button type="button" class="close text-light" data-dismiss="modal" aria-label="Close">
+              <span aria-hidden="true">&times;</span>
+            </button>
+          </div>
+          <div class="modal-body">
+            <!-- action="/officers/search/name" -->
+            <form id="modal" onsubmit="event.preventDefault(); return nameSearch()">
+                <div class="form-group" id="nameResults">
+                    <label for="bolo" class="text-light">Name</label>
+                    <input type="text" required class="form-control bg-secondary text-light border-secondary" onkeydown="showCitizensResult()" name="name" id="nameSearchIn" placeholder="Search By Name">
+                    <datalist id="citizens">
+                      <% citizens.forEach(citizen => { %>
+                        <option value="<%= citizen.full_name %>"><%= citizen.full_name %></option>
+                      <% }) %>
+                    </datalist>
+                </div>
+                <div class="container">
+                  <div id="notfound"></div> <br>
+                  <div class="row">
+                    <div class="col-sm-6">
+                      <h6 class="card-title bolder text-light">Person Info</h6>
+                          <div id="personInfo" class="text-light list-group"></div>
+                    </div>
+                    <div class="col-sm-6">
+                      <h6 class="card-title bolder text-light">Licenses</h6>
+                      <div id="licenses" class="text-light"></div>
+                    </div>
+                    <div class="col-sm-6">
+                        <img src="/citizen-pictures/loading" alt="Search a Citizen" id="citizen_picture" class="rounded-circle" style="width: 100px; height: 100px;">
+                    </div>
+                  </div>
+                  <div class="row">
+                    <div class="col">
+                      <h6 class="card-title bolder text-light mt-3">Warnings</h6>
+                          <div id="written_warnings" class="overflow-auto" style="max-height: 15rem;" class="text-light">
+
+                          </div>
+                      </div>
+                  </div>
+                  <div class="row">
+                    <div class="col">
+                      <h6 class="card-title bolder text-light mt-3">Tickets</h6>
+                          <div id="tickets" class="overflow-auto" style="max-height: 15rem;" class="text-light">
+
+                          </div>
+                      </div>
+                  </div>
+                  <div class="row">
+                    <div class="col">
+                      <h6 class="card-title bolder text-light mt-3">Arrest Reports</h6>
+                          <div id="arrest_reports" class="overflow-auto" style="max-height: 15rem;" class="text-light">
+
+                          </div>
+                      </div>
+                  </div>
+                  <div class="row">
+                    <div class="col">
+                      <h6 class="card-title bolder text-light mt-3">Warrants</h6>
+                          <div id="warrants" class="overflow-auto list-group" style="max-height: 15rem;" class="text-light">
+
+                          </div>
+                      </div>
+                  </div>
+                </div>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+          <button type="submit" class="btn btn-primary">Search</button>
+      </div>
+      </form>
+        </div>
+      </div>
+    </div>
+
+    <!-- changeWarrantStatus -->
+    <div class="modal fade" id="changeWarrantStatus" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+      <div class="modal-dialog" role="document">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title" id="exampleModalLabel">Change Warrant Status</h5>
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+              <span aria-hidden="true">&times;</span>
+            </button>
+          </div>
+          <div class="modal-body">
+            ...
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+            <button type="button" class="btn btn-primary">Save changes</button>
+          </div>
+        </div>
+      </div>
+    </div>
+    
+
+    <!-- Container -->
+  </div>
+
+
+<script>
+
+  const xhttp = new XMLHttpRequest();
+
+
+  function showCitizensResult() {
+    const nameSearchInput = document.getElementById("nameSearchIn").value
+
+      if (nameSearchInput.length > 3) {
+        const nameSearch = document.getElementById("nameSearchIn");
+        const att = document.createAttribute("list");
+        att.value = "citizens";
+        nameSearch.setAttributeNode(att)
+        // document.getElementById("citizens").style.display = "block"        
+      } else {
+        console.log("not longer");
+
+      }
+    
+  }
+
+  function warrantCitizens() {
+    const warrantCitizensSearch = document.getElementById("warrantCitizensSearch").value
+
+      if (warrantCitizensSearch.length > 3) {
+        const warrant = document.getElementById("warrantCitizensSearch");
+        const att = document.createAttribute("list");
+        att.value = "citizens2";
+        warrant.setAttributeNode(att)
+        // document.getElementById("citizens").style.display = "block"        
+      } else {
+        console.log("not longer");
+
+      }
+    
+  }
+  
+
+
+  function nameSearch() {
+    const nameSearchInputValue = document.getElementById("nameSearchIn").value
+    xhttp.open("GET", `/officers/api/name/${nameSearchInputValue}`, true);
+    
+    xhttp.onload = function() {
+      if (this.status === 200) {
+        let result = JSON.parse(this.responseText);
+
+        
+      
+        let person = '';
+        let licenses = '';
+        let warrant;
+
+        console.log(result);
+        
+        if (result[1].length >0) {
+          person += '<ul>' + 
+            '<li><span class="bolder mt-1"> Full Name:</span> ' + result[1][0].full_name +'</li>' +
+            '<li><span class="bolder mt-1"> Gender:</span> ' + result[1][0].gender +'</li>'+
+            '<li><span class="bolder mt-1"> Day of Birth:</span> ' + result[1][0].birth +'</li>'+
+            '<li><span class="bolder mt-1"> Ethnicity:</span> ' + result[1][0].ethnicity +'</li>'+
+            '<li><span class="bolder mt-1"> Hair Color:</span> ' + result[1][0].hair_color +'</li>'+
+            '<li><span class="bolder mt-1"> Eye Color:</span> ' + result[1][0].eye_color +'</li>'+
+            '<li><span class="bolder mt-1"> Address:</span> ' + result[1][0].address +'</li>'+
+            '<li><span class="bolder mt-1"> Height / Weight: </span> ' + result[1][0].height + " / " + result[1][0].weight + '</li>'+
+            '</ul>';
+          
+          licenses += '<ul>' +
+            '<li><span class="bolder mt-1"> Drivers Licenses:</span> ' + result[1][0].dmv +'</li>' +
+            '<li><span class="bolder mt-1"> Firearms Licenses:</span> ' + result[1][0].fire_license +'</li>' +
+            '<li><span class="bolder mt-1"> Pilot License:</span> ' + result[1][0].pilot_license +'</li>' +
+            '<li><span class="bolder mt-1"> CCW:</span> ' + result[1][0].ccw +'</li>' +
+            '<li><span class="bolder mt-1"> <a class="btn btn-danger" href=\'/global/officers/susdmv/'+ result[1][0].id+'\'> Suspend Drivers License </a> </li>' +
+            '</ul>'
+  
+              // Written Warnings
+              if (result[4].length > 0) {
+              let written_warnings = result[4].map(written_warning => {
+                return  '<li class="list-group-item"> ' + written_warning.infractions + ' <br />  <span class="bolder">Given On:</span> '+ written_warning.date +'<br /> <span class="bolder">Given By: </span> '+ written_warning.officer_name +' <br /> <span class="bolder">Nearest Postal:</span> '+ written_warning.postal +' <br /> <span class="bolder">Notes:</span> '+ written_warning.notes +' </li>'
+              });
+              document.getElementById("written_warnings").innerHTML = written_warnings.join('\n');
+            }  else {
+              document.getElementById("written_warnings").innerHTML = '<li class="list-group-item">Person Has No Warnings</li>'
+            }
+  
+              // Tickets
+            if (result[2].length > 0) {
+              let tickets = result[2].map(charge => {
+                return  '<li class="list-group-item"> ' + charge.charge + ' <br />  <span class="bolder">Given On: </span> '+ charge.date +'<br /> <span class="bolder">Given By: </span> '+ charge.officer_name +' <br /> <span class="bolder">Nearest Postal:</span> '+ charge.postal +'<br /> <span class="bolder">Notes:</span> '+ charge.notes +'<br /> </li> '
+              });
+              document.getElementById("tickets").innerHTML = tickets.join('\n');
+            }  else {
+              document.getElementById("tickets").innerHTML = '<li class="list-group-item">Person Has No tickets</li>'
+            }
+
+            // Arrest Reports
+            if (result[3].length > 0) {
+              let arrest_reports = result[3].map(report => {
+                return  '<li class="list-group-item"> ' + report.charges + ' <br />  <span class="bolder">Given On: </span> '+ report.date +' <br /> <span class="bolder">Given By: </span> '+ report.officer_name +' <br /> <span class="bolder">Nearest Postal:</span> '+ report.postal +' <br /> <span class="bolder">Notes:</span> '+ report.notes +'<br /> </li>'
+              });
+              document.getElementById("arrest_reports").innerHTML = arrest_reports.join('\n');
+            }  else {
+              document.getElementById("arrest_reports").innerHTML = '<li class="list-group-item">Person Has No arrest reports</li>'
+            }
+
+
+            // Warrants
+          if (result[0].length > 0) {
+            warrants = result[0].map(warrant => {
+              return   '<li class="list-group-item">  <span class="card-title bolder"> Warrant: </span> '+warrant.reason+' <br> <span class="card-title bolder">Status: </span> '+ warrant.status + '  <div class="float-right"><a href="/global/officers/w-status-'+ warrant.id +'" class=" btn btn-primary">Change Status</a>  </div>  </li>'
+            });
+            document.getElementById("warrants").innerHTML = warrants.join('\n');
+          } else {
+            document.getElementById("warrants").innerHTML = '<li class="list-group-item">Person Has No Warrants</li>';
+          }
+          
+  
+          document.getElementById("personInfo").innerHTML = person;
+          document.getElementById("licenses").innerHTML = licenses;
+          document.getElementById("citizen_picture").src = "/citizen-pictures/"+result[1][0].citizen_picture
+        } else {
+          document.getElementById("notfound").textContent ="Citizen Not Found"
+        }
+      } 
+    }
+
+
+    xhttp.send();
+  }
+
+  function plateSearch() {
+    const plateSearchInputValue = document.getElementById("plateSearchIn").value
+    xhttp.open("GET", `/officers/api/plate/${plateSearchInputValue}`, true);
+    
+    xhttp.onload = function() {
+      if (this.status === 200) {
+        let result = JSON.parse(this.responseText);
+
+        console.log(result);
+
+        let plates = '';
+      
+        if (result.length > 0) {
+          plates += '<ul>' + 
+          '<li><span class="bolder mt-1"> Plate:</span> ' + result[0].plate +'</li>' +
+          '<li><span class="bolder mt-1"> Vehicle:</span> ' + result[0].vehicle +'</li>'+
+          '<li><span class="bolder mt-1"> VIN Number:</span> ' + result[0].vin_number +'</li>'+
+          '<li><span class="bolder mt-1"> Color:</span> ' + result[0].color +'</li>'+
+          '<li><span class="bolder mt-1"> Insurance Status:</span> ' + result[0].in_status +' </li>'+
+          '<li><span class="bolder mt-1"> Owner:</span> ' + result[0].owner +'</li>'+
+          '<li><span class="bolder mt-1"> Company:</span> ' + result[0].company +'</li>'+
+          '</ul>';
+        
+
+        document.getElementById("plates").innerHTML = plates;
+        } else {
+        document.getElementById("plates").innerHTML = "Plate was not found";
+        }
+
+        
+      }
+    }
+    xhttp.send();
+  };
+
+  function weaponSearch() {
+    const weaponSerialNumber = document.getElementById("serial_number").value
+    xhttp.open("GET", `/officers/api/weapon/${weaponSerialNumber}`, true);
+    
+    xhttp.onload = function() {
+      if (this.status === 200) {
+        let result = JSON.parse(this.responseText);
+
+        console.log(result);
+
+        let weapons = '';
+      
+        if (result.length > 0) {
+          weapons += '<ul>' + 
+          '<li><span class="bolder mt-1"> Weapon Type:</span> ' + result[0].weapon +'</li>' +
+          '<li><span class="bolder mt-1"> Serial Number:</span> ' + result[0].serial_number +'</li>'+
+          '<li><span class="bolder mt-1"> Weapon Status:</span> ' + result[0].status +'</li>'+
+          '<li><span class="bolder mt-1"> Owner:</span> ' + result[0].owner +'</li>'+
+          '</ul>';
+        
+
+        document.getElementById("weapons").innerHTML = weapons;
+        } else {
+        document.getElementById("weapons").innerHTML = "Weapon was not found";
+        }
+
+        
+      }
+    }
+    xhttp.send();
+  }
+
+  function refresh() {
+    document.location.reload()
+  }
+
+  </script>

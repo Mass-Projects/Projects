@@ -1,0 +1,113 @@
+<%- include("./partials/header.ejs") %>
+
+<div class="container-fluid">
+  <div class="row">
+    <%- include("./partials/admin-header.ejs") %>
+
+    <main role="main" class="col-md-9 ml-sm-auto col-lg-10 px-4 text-light">
+      <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
+        <h1 class="h2">Admin</h1>
+      </div>
+
+      <div class="container my-4 w-100 row">
+        <div class="col-sm">
+          <h5 class="card-title">Member Count:</h5>
+          <div class="col-sm">
+            <h1 class="card-title counter" data-target="<%= users %>">
+              <% if(users.length < 0) { %> <%= users.length %> <% } else {%> 0
+              <%} %>
+            </h1>
+          </div>
+        </div>
+        <div class="col-sm">
+          <h5 class="card-title">Citizens Count:</h5>
+          <div class="col-sm">
+            <h1 class="card-title counter" data-target="<%= citizens %>">
+              <% if(citizens.length < 0) { %> <%= citizens.length %> <% } else
+              {%> 0 <%} %>
+            </h1>
+          </div>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-sm">
+          <h5 class="card-title">Registered Weapon Count:</h5>
+          <div class="col-sm">
+            <h1 class="card-title counter" data-target="<%= weapons %>">
+              <% if(weapons.length < 0) { %> <%= weapons.length %> <% } else {%>
+              0 <%} %>
+            </h1>
+          </div>
+        </div>
+        <div class="col-sm">
+          <h5 class="card-title">Registered Vehicle Count:</h5>
+          <div class="col-sm">
+            <h1 class="card-title counter" data-target="<%= vehicles %>">
+              <% if(vehicles.length < 0) { %> <%= vehicles.length %> <% } else
+              {%> 0 <%} %>
+            </h1>
+          </div>
+        </div>
+        <div class="col-sm">
+          <h5 class="card-title">Charges Count:</h5>
+          <div class="col-sm">
+            <h1 class="card-title counter" data-target="<%= charges %>">
+              <% if(charges.length < 0) { %> <%= charges.length %> <% } else {%>
+              0 <%} %>
+            </h1>
+          </div>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-sm">
+          <h5 class="card-title">Bolos Count:</h5>
+          <div class="col-sm">
+            <h1 class="card-title counter" data-target="<%= bolos %>">
+              <% if(bolos.length < 0) { %> <%= bolos.length %> <% } else {%> 0
+              <%} %>
+            </h1>
+          </div>
+        </div>
+        <div class="col-sm">
+          <h5 class="card-title">Companies Count:</h5>
+          <div class="col-sm">
+            <h1 class="card-title counter" data-target="<%= companies %>">
+              <% if(companies.length < 0) { %> <%= companies.length %> <% } else
+              {%> 0 <%} %>
+            </h1>
+          </div>
+        </div>
+        <div class="col-sm">
+          <h5 class="card-title">Company Posts Count:</h5>
+          <div class="col-sm">
+            <h1 class="card-title counter" data-target="<%= posts %>">
+              <% if(posts.length < 0) { %> <%= posts.length %> <% } else {%> 0
+              <%} %>
+            </h1>
+          </div>
+        </div>
+      </div>
+    </main>
+  </div>
+</div>
+
+<script>
+  const counters = document.querySelectorAll('.counter');
+  const speed = 1000;
+
+  counters.forEach(counter => {
+    const updateCount = () => {
+      const target = +counter.getAttribute('data-target');
+      const count = +counter.innerText;
+      const inc = target / speed;
+
+      if (count < target) {
+        counter.innerText = Math.ceil(count + inc);
+        setTimeout(updateCount, 1);
+      } else {
+        count.innerText = target;
+      }
+    };
+    updateCount();
+  });
+</script>

@@ -1,0 +1,177 @@
+<%- include("../partials/header.ejs") %>
+
+<form
+  class="container"
+  action=""
+  method="post"
+  enctype="multipart/form-data"
+>
+  <% if(message != ''){ %>
+  <div class="alert alert-danger alert-dismissible fade show" role="alert">
+    <%= message %>
+    <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+      <span aria-hidden="true">&times;</span>
+    </button>
+  </div>
+  <% } %>
+  <div class="form-group text-light">
+    <label for="citizen_pictures">Citizens Picture</label>
+    <input
+      type="file"
+      name="citizen_pictures"
+      id="citizen_pictures"
+      class="form-control-file"
+      required
+    />
+  </div>
+  <div class="form-group text-light">
+    <label for="exampleInputEmail1">Enter Full Name</label>
+    <input
+      name="full_name"
+      type="text"
+      class="form-control bg-dark text-light border-dark"
+      placeholder="Full Name"
+      minlength="1"
+      maxlength="255"
+    />
+  </div>
+  <div class="form-group text-light">
+    <label for="exampleInputEmail1">Enter Birthday</label>
+    <input
+      name="birth"
+      type="text"
+      class="form-control bg-dark text-light border-dark"
+      placeholder="Birthday"
+      required
+      minlength="1"
+      maxlength="255"
+    />
+  </div>
+  <div class="form-group text-light">
+    <label for="exampleInputEmail1">Enter Ethnicity</label>
+    <select
+      name="ethnicity"
+      class="form-control bg-dark text-light border-dark"
+    >
+      <% ethnicities.forEach(ethnicity => { %>
+      <option value="<%= ethnicity.name %>"><%= ethnicity.name %></option>
+      <% }) %>
+    </select>
+  </div>
+
+  <div class="form-group text-light">
+    <label for="exampleInputEmail1">Enter Gender</label>
+    <select name="gender" class="form-control bg-dark text-light border-dark">
+      <% genders.forEach(gender => { %>
+      <option value="<%= gender.name %>"><%= gender.name %></option>
+      <% }) %>
+    </select>
+  </div>
+  <div class="form-group text-light">
+    <label for="exampleInputEmail1">Enter Hair Color</label>
+    <input
+      name="hair_color"
+      type="text"
+      class="form-control bg-dark text-light border-dark"
+      placeholder="Hair Color"
+      required
+    />
+  </div>
+  <div class="form-group text-light">
+    <label for="exampleInputEmail1">Enter Eye Color</label>
+    <input
+      name="eye_color"
+      type="text"
+      class="form-control bg-dark text-light border-dark"
+      placeholder="Eye Color"
+      required
+      minlength="1"
+      maxlength="255"
+    />
+  </div>
+  <div class="form-group text-light">
+    <label for="exampleInputEmail1">Enter Address</label>
+    <input
+      name="address"
+      type="text"
+      class="form-control bg-dark text-light border-dark"
+      placeholder="Address"
+      required
+      minlength="1"
+      maxlength="255"
+    />
+  </div>
+
+  <div class="form-group text-light">
+    <label for="exampleInputEmail1">Enter Height</label>
+    <input
+      name="height"
+      type="text"
+      class="form-control bg-dark text-light border-dark"
+      placeholder="Height"
+      minlength="1"
+      maxlength="255"
+    />
+  </div>
+  <div class="form-group text-light">
+    <label for="exampleInputEmail1">Enter Weight</label>
+    <input
+      name="weight"
+      type="text"
+      class="form-control bg-dark text-light border-dark"
+      placeholder="Weight"
+      minlength="1"
+      maxlength="255"
+    />
+  </div>
+
+  <!-- Licences -->
+  <h1 class="text-light">Licenses</h1>
+  <div class="form-row">
+    <div class="form-group text-light col-md-3">
+      <label for="exampleInputEmail1">Drivers Licence</label>
+      <select name="dmv" class="form-control bg-dark text-light border-dark">
+        <% dmvs.forEach(dmv => { %>
+        <option value="<%= dmv.status %>"><%= dmv.status %></option>
+        <% }) %>
+        <option value="none">None</option>
+      </select>
+    </div>
+
+    <div class="form-group text-light col-md-3">
+      <label for="exampleInputEmail1">Firearms Licence</label>
+      <select name="fire" class="form-control bg-dark text-light border-dark">
+        <% dmvs.forEach(dmv => { %>
+        <option value="<%= dmv.status %>"><%= dmv.status %></option>
+        <% }) %>
+        <option value="none">None</option>
+      </select>
+    </div>
+
+    <div class="form-group text-light col-md-3">
+      <label for="exampleInputEmail1">Pilots Licence</label>
+
+      <select name="pilot" class="form-control bg-dark text-light border-dark">
+        <% dmvs.forEach(dmv => { %>
+        <option value="<%= dmv.status %>"><%= dmv.status %></option>
+        <% }) %>
+        <option value="none">None</option>
+      </select>
+    </div>
+    <div class="form-group text-light col-md-3">
+      <label for="exampleInputEmail1">CCW Licence</label>
+
+      <select name="ccw" class="form-control bg-dark text-light border-dark">
+        <% dmvs.forEach(dmv => { %>
+        <option value="<%= dmv.status %>"><%= dmv.status %></option>
+        <% }) %>
+        <option value="none">None</option>
+      </select>
+    </div>
+  </div>
+
+  <button type="submit" class="btn btn-primary float-right margin-right-10">
+    Add Citizen
+  </button>
+  <a href="/citizen" class="btn cancel-btn btn-danger float-right">Cancel</a>
+</form>

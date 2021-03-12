@@ -1,0 +1,75 @@
+<%- include("../partials/header.ejs") %>
+
+<form
+  class="add-player-form text-light"
+  action="/auth/login"
+  method="post"
+  enctype="application/x-www-form-urlencoded"
+>
+  <div class="form-group">
+    <% if(message != ''){ %>
+    <div class="alert alert-danger alert-dismissible fade show" role="alert">
+      <%= message %>
+      <button
+        type="button"
+        class="close"
+        data-dismiss="alert"
+        aria-label="Close"
+      >
+        <span aria-hidden="true">&times;</span>
+      </button>
+    </div>
+    <% } %>
+    <label for="exampleInputEmail1">Enter Username</label>
+    <input
+      type="text"
+      name="username"
+      class="form-control text-light bg-dark border-dark"
+      id="exampleInputEmail1"
+      required
+      aria-describedby="emailHelp"
+    />
+  </div>
+  <div class="form-group">
+    <label for="exampleInputEmail1">Enter Password</label>
+
+    <div class="input-group mb-2">
+      <input
+        name="password"
+        type="password"
+        class="form-control"
+        placeholder="Password"
+        id="password"
+      />
+      <div class="input-group-prepend">
+        <button
+          type="button"
+          id="passwordBtns"
+          class="input-group-text btn btn-primary"
+          onclick="showPassword()"
+        >
+          Show Password
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <p>
+    Don't have an account?
+    <a href="/auth/register">Register here</a>
+  </p>
+  <button type="submit" class="btn btn-primary">Login</button>
+</form>
+<script>
+  function showPassword() {
+    let passwordInput = document.getElementById('password');
+    let passwordbtn = document.getElementById('passwordBtns');
+    if (passwordInput.type === 'password') {
+      passwordInput.type = 'text';
+      passwordbtn.textContent = 'Hide Password';
+    } else {
+      passwordInput.type = 'password';
+      passwordbtn.textContent = 'Show Password';
+    }
+  }
+</script>
