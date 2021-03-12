@@ -1,0 +1,61 @@
+export const GET_911_CALLS = 'GET_911_CALLS';
+export const CREATE_911_CALL = 'CREATE_911_CALL';
+export const END_911_CALL = 'END_911_CALL';
+export const UPDATE_911_CALL = 'UPDATE_911_CALL';
+
+
+// BOLOS
+export const GET_BOLOS = 'GET_BOLOS';
+export const CREATE_BOLO = 'CREATE_BOLO';
+export const REMOVE_BOLO = 'REMOVE_BOLO';
+
+// record
+export const CREATE_WRITTEN_WARNING = 'CREATE_WRITTEN_WARNING'
+export const CREATE_TICKET = 'CREATE_TICKET'
+export const CREATE_ARREST_REPORT = 'CREATE_ARREST_REPORT'
+export const CREATE_WARRANT = 'CREATE_WARRANT'
+
+// STATUS - dispatch
+export const SET_STATUS_1 = "SET_STATUS_1";
+export const SET_STATUS_2 = "SET_STATUS_2";
+// STATUS - officer
+export const SET_STATUS = "SET_STATUS";
+export const GET_CURRENT_OFFICER_STATUS = "GET_CURRENT_OFFICER_STATUS";
+export const GET_OFFICERS = 'GET_OFFICERS'
+export const SET_ON_DUTY = "SET_ON_DUTY"
+export const SET_OFF_DUTY = "SET_OFF_DUTY"
+export const GET_ALL_OFFICERS = "GET_ALL_OFFICERS"
+
+// OTHER
+export const PANIC_START = 'PANIC_START'
+export const UPDATE_AOP = "UPDATE_AOP"
+export const GET_AOP = "GET_AOP"
+
+// MESSAGE
+export const SET_MESSAGE = "SET_MESSAGE"
+export const REMOVE_MESSAGE = "REMOVE_MESSAGE"
+
+// DISPATCH
+export const GET_ACTIVE_UNITS = "GET_ACTIVE_UNITS";
+
+// CAD_SETTINGS
+export const UPDATE_CAD_SETTINGS = "UPDATE_CAD_SETTINGS"
+export const GET_CAD_SETTINGS = "GET_CAD_SETTINGS"
+
+// TOW CALLS
+export const GET_TOW_CALLS = "GET_TOW_CALLS";
+export const CREATE_TOW_CALL = "CREATE_TOW_CALL";
+export const END_TOW_CALL = "END_TOW_CALL";
+
+// EMS_FD
+export const EMS_SET_STATUS = "EMS_SET_STATUS";
+export const EMS_GET_STATUS = "EMS_GET_STATUS";
+export const EMS_SET_ON_DUTY = "EMS_SET_ON_DUTY";
+export const EMS_SET_OFF_DUTY = "EMS_SET_OFF_DUTY"; 
+
+// citizen
+export const GET_CITIZENS_BY_ACC = "GET_CITIZENS_BY_ACC"; 
+export const GET_CITIZENS_BY_ID = "GET_CITIZENS_BY_ID"; 
+export const UPDATE_CITIZEN_BY_ID = "UPDATE_CITIZEN_BY_ID"; 
+export const DELETE_CITIZEN_BY_ID = "DELETE_CITIZEN_BY_ID"; 
+export const GET_ALL_CITIZENS = "GET_ALL_CITIZENS"; 
