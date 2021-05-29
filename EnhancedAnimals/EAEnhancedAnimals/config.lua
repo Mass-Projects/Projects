@@ -2,12 +2,12 @@ Config = {}
 
 
 --DEFAULT GTAV ANIMALS--
-Config.Deer = true, 3.5
-Config.Boar = true, 3.5
-Config.Birds = true, 10
+Config.Deer = true -- TEMPROARLY REMOVED RARITY, WILL BE READDED UPON A STABLE RELEASE!--
+Config.Boar = true
+Config.Birds = true
 
 
---SREAMED ANIMALS (CUSTOM ONES WE MADE)--
+--STREAMED ANIMALS (CUSTOM ONES WE MADE)--
 
 --IF YOU WANT ANIMALS TO ATTACK USE true (PLEASE NOTE IF THEY ATTACK THEY ARE TUNED MORE THAN DEFUALT :)--
 Config.DeerAttack = false
