@@ -17,3 +17,6 @@ Citizen.CreateThread(function()
 		end
 	end
 end)
+
+
+--BOAR--
