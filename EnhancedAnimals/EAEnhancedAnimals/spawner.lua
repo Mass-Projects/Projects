@@ -7,8 +7,7 @@ Citizen.CreateThread(function()
     end
 	
 	if Config.Deer = true 
-	then for _, item in pairs(Config.DeerSpawn) do
-			local npc = CreatePed(4, 0xA1435105, item.x, item.y, item.z, item.heading, false, true)
+	then for _, item in pairs(Config.DeerSpawn) do local npc = CreatePed(4, 0xA1435105, item.x, item.y, item.z, item.heading, false, true)
 			
 			SetEntityHeading(npc, item.heading)
 			FreezeEntityPosition(npc, false)
