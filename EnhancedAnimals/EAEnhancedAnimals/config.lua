@@ -9,6 +9,10 @@ Config.Birds = true, 10
 
 --SREAMED ANIMALS (CUSTOM ONES WE MADE)--
 
+--IF YOU WANT ANIMALS TO ATTACK USE true (PLEASE NOTE IF THEY ATTACK THEY ARE TUNED MORE THAN DEFUALT :)--
+Config.DeerAttack = false
+Config.BoarAttack = false
+Config.BirdsAttack = false
 
 
 --ZONES--
